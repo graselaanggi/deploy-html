@@ -1,0 +1,27 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBBKn0rM5Va3IEHUEIzFAJD2AjWfhWon/e5D9hxEzSYW github-cicd }}
+
+      - name: Deploy to VPS
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.anggi }}@${{ secrets.43.134.163.21 }} << 'EOF'
+            cd ${{ secrets./home/anggi/deploy-html }}
+            git pull
+            docker compose down || true
+            docker compose up -d --build
+          EOF
