@@ -21,8 +21,8 @@ jobs:
       - name: Deploy to VPS
         run: |
           ssh -o StrictHostKeyChecking=no \
-          ${{ secrets.anggi }}@${{ secrets.43.134.163.21 }} << 'EOF'
-            cd ${{ secrets./home/anggi/deploy-html }}
+          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} << 'EOF'
+            cd ${{ secrets.SERVER_DIR }}
             git pull
             docker compose down || true
             docker compose up -d --build
