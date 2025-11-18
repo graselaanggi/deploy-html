@@ -3,7 +3,7 @@ version: "3.9"
 services:
   web:
     build: .
-    container_name: lsp_web
+    container_name: anggi_web
     ports:
       - "80:80"
     restart: always
